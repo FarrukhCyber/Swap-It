@@ -21,10 +21,11 @@ def logout():
 @auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        user_id = request.form.get('user_id') # Confirm with FrontEnd 
+        user_id = request.form.get('user_id')   # Confirm with FrontEnd 
         email = request.form.get('email')       # Confirm with FrontEnd
-        name = request.form.get('firstName')    # Confirm with FrontEnd
+        name = request.form.get('name')         # Confirm with FrontEnd
         password = request.form.get('password') # Confirm with FrontEnd
+        # option = request.form.get('options')    # Confirm with FrontEnd
         
         # VALIDATION CHECK---------------------------
         #Creating a connection cursor
