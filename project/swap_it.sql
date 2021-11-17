@@ -1,6 +1,3 @@
-'''
-Table structure for table Student
-'''
 DROP TABLE IF EXISTS Student;
 CREATE TABLE Student
 (   
@@ -13,7 +10,7 @@ CREATE TABLE Student
     primary key(StudentID)
 );
 
-INSERT INTO Student ('StudentID' ,'StudentName', 'Password_','Email', 'TotalCreditHours',  'DepartmentName') VALUES
+INSERT INTO Student (StudentID ,StudentName, Password_,Email, TotalCreditHours,  DepartmentName) VALUES
     ('23100100', 'Sarah Khan', 'helloWorld1', '23100100@lums.edu.pk', 62, 'Computer Science'),
     ('23100101', 'Ayesha Ahmad', 'thisismypassword', '23100101@lums.edu.pk', 89, 'Mathematics'),
     ('23100080', 'Abdullah Masood', 'ok2103asy', '23100080@lums.edu.pk', 115, 'Economics'),
@@ -22,9 +19,7 @@ INSERT INTO Student ('StudentID' ,'StudentName', 'Password_','Email', 'TotalCred
 
 
 
-'''
-Table structure for table Course
-'''
+
 DROP TABLE IF EXISTS Course;
 CREATE TABLE Course
 (   
@@ -36,7 +31,7 @@ CREATE TABLE Course
     primary key(CourseID)
 );
 
-INSERT INTO Course ('CourseID', 'Title', 'DepartmentName', 'Credits', 'ModesOfInstruction') VALUES
+INSERT INTO Course (CourseID, Title, DepartmentName, Credits, ModesOfInstruction) VALUES
     ('CS100', 'Intro to Computer Science', 'Computer Science', 3, 'Online'),
     ('CAL101', 'Calculus 1', 'Mathematics', 3, 'On-campus'),
     ('PHY101', 'Mechanics', 'Physics', 4, 'Online'),
@@ -44,10 +39,6 @@ INSERT INTO Course ('CourseID', 'Title', 'DepartmentName', 'Credits', 'ModesOfIn
     ('ECO111','MicroEconomics','Economics', 3, 'Online');
 
 
-
-'''
-Table structure for table Section
-'''
 DROP TABLE IF EXISTS Section;
 CREATE TABLE Section
 (
@@ -63,7 +54,7 @@ CREATE TABLE Section
     foreign key (TimeSlotID) references TimeSlot
 );
 
-INSERT INTO Section ('SectionID', 'CourseID', 'InstructorID', 'Semester', 'Year_', 'TimeSlotID') VALUES
+INSERT INTO Section (SectionID, CourseID, InstructorID, Semester, Year_, TimeSlotID) VALUES
     ('S1','CS100', '001', 'Fall', 2019, '1'),
     ('S2','CAL101', '002', 'Spring', 2019, '2'),
     ('S1', 'PHY101', '003', 'Fall', 2020, '3'),
@@ -71,10 +62,6 @@ INSERT INTO Section ('SectionID', 'CourseID', 'InstructorID', 'Semester', 'Year_
     ('S1', 'HIST124', '004', 'Spring', 2020, '5');
 
 
-
-'''
-Table structure for table TimeSlot
-'''
 DROP TABLE IF EXISTS TimeSlot;
 CREATE TABLE TimeSlot 
 (
@@ -93,9 +80,7 @@ INSERT INTO TimeSlot(TimeSlotID, Day_, Start_Time, End_Time)VALUES
 
 
 
-'''
-Table structure for table PreReq
-'''
+
 DROP TABLE IF EXISTS PreReq;
 CREATE TABLE PreReq 
 (
@@ -113,9 +98,7 @@ INSERT INTO PreReq(PreReqID, CourseID)VALUES
 
 
 
-'''
-Table structure for table Takes
-'''
+
 DROP TABLE IF EXISTS Takes;
 CREATE TABLE Takes
 (
@@ -125,12 +108,12 @@ CREATE TABLE Takes
     Semester varchar(255) NOT NULL,
     Year_ int(4) NOT NULL,
     Grade varchar(255) NOT NULL, 
-    primary key (TakesID,Grade)
+    primary key (TakesID,Grade),
     foreign key (CourseID) references Course,
     foreign key (SectionID, Semester, Year_) references Section 
 );
 
-INSERT INTO Takes ('TakesID', 'CourseID', 'SectionID', 'Semester', 'Year_', 'Grade') VALUES
+INSERT INTO Takes (TakesID, CourseID, SectionID, Semester, Year_, Grade) VALUES
     ('23100100','CS100', 'S1', 'Fall', 2019, 'A'),
     ('23100101','CAL101', 'S2', 'Spring', 2019, 'B+'),
     ('23100080', 'PHY101', 'S1', 'Fall', 2020, 'A-'),
@@ -139,9 +122,6 @@ INSERT INTO Takes ('TakesID', 'CourseID', 'SectionID', 'Semester', 'Year_', 'Gra
 
 
 
-'''
-Table structure for table Instructor
-'''
 DROP TABLE IF EXISTS Instructor;
 CREATE TABLE Instructor
 (
@@ -162,9 +142,6 @@ INSERT INTO Instructor
 VALUES ("005", "Baqar Syed", "Religious Studies");
 
 
-'''
-Table structure for table Teaches
-'''
 DROP TABLE IF EXISTS Teaches;
 CREATE TABLE Teaches
 (
@@ -187,9 +164,7 @@ INSERT INTO Teaches
 VALUES ("005", "SS101", "S1", "Spring", 2020);
 
 
-'''
-Table structure for table Admin
-'''
+
 DROP TABLE IF EXISTS Admin;
 CREATE TABLE Admin
 (
@@ -210,9 +185,7 @@ INSERT INTO Admin
 VALUES ("105", "Soha Amir", "PassWord12335.", "soha.amir@lums.edu.pk");
 
 
-'''
-Table structure for table SwapIt
-'''
+
 DROP TABLE IF EXISTS SwapIt;
 CREATE TABLE SwapIt
 (
