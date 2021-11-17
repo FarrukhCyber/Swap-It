@@ -25,14 +25,20 @@ def sign_up():
         email = request.form.get('email')       # Confirm with FrontEnd
         name = request.form.get('name')         # Confirm with FrontEnd
         password = request.form.get('password') # Confirm with FrontEnd
-        # option = request.form.get('options')    # Confirm with FrontEnd
+        option = request.form.get('options')    # Confirm with FrontEnd
         
         # VALIDATION CHECK---------------------------
         #Creating a connection cursor
         cursor = mysql.connection.cursor()
         
-        #Executing SQL Statements, we will get number of entries in result
-        result = cursor.execute("SELECT * FROM student WHERE StudentName=%s AND Email=%s", (name,email))
+        #signup as an admin
+        if option == "option1":
+            result = cursor.execute("SELECT * FROM Admin WHERE AdminName=%s AND AdminEmail=%s", (name,email))
+            
+        #sign up as Student
+        elif option == "option2":
+            result = cursor.execute("SELECT * FROM student WHERE StudentName=%s AND Email=%s", (name,email))
+            
         cursor.close()
         
         if result>0:
