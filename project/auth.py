@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask.helpers import url_for
 from werkzeug.utils import redirect
+# from flask_login import login_user, login_required, logout_user, current_user
 
 from project import views
 from .db_config import create_db
@@ -15,7 +16,9 @@ def login():
 
 
 @auth.route('/logout')
+# @login_required
 def logout():
+    # logout_user()
     return redirect(url_for('auth.login'))
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -57,16 +60,31 @@ def sign_up():
             # flash('Password must be at least 3 characters.', category='error')
             print("very weak password")
         else:
-            cursor = mysql.connection.cursor()
-            crd = "23"
-            dept = "CS"
-            cursor.execute("INSERT INTO student(StudentID ,StudentName, Password_, Email, TotalCreditHours,  DepartmentName) VALUES(%s,%s,%s,%s,%s,%s)", (user_id, name, password, email,crd,dept))
-            mysql.connection.commit()
-            cursor.close() 
+            #insert into student table
+            if option == "option2":
+                cursor = mysql.connection.cursor()
+                crd = "23"
+                dept = "CS"
+                cursor.execute("INSERT INTO student(StudentID ,StudentName, Password_, Email, TotalCreditHours,  DepartmentName) VALUES(%s,%s,%s,%s,%s,%s)", (user_id, name, password, email,crd,dept))
+                mysql.connection.commit()
+                # cursor.execute("SELECT * from stduent WHERE StudentID=%s", user_id)
+                # user = cursor.fetchall()
+                cursor.close() 
+                # login_user(user, remember=True)
+                # flash('Account created!', category='success')
+                return redirect(url_for('views.home_page'))
             
-            # flash('Account created!', category='success')
-            print("Account created")
-            return redirect(url_for('views.home_page'))
+            #insert into admin table
+            elif option == "option1":
+                cur = mysql.connection.cursor()
+                cur.execute("INSERT INTO Admin VALUES (%s,%s,%s,%s)", (user_id, name, password, email))
+                mysql.connection.commit()
+                # cur.execute("SELECT * from Admin WHERE AdminID=%s", user_id)
+                # user = cur.fetchall()
+                cur.close() 
+                # login_user(user, remember=True)
+                # flash('Account created!', category='success')
+                return redirect(url_for('views.home_page'))
     
     return render_template("sign_up.html")
             
