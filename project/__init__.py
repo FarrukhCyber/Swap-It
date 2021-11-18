@@ -4,7 +4,7 @@ from flask_login.utils import login_required
 app = Flask(__name__)
 # from auth import user 
 def create_app():
-    # app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
+    app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     
     from .views import views
     from .auth import auth
