@@ -1,0 +1,34 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='search_output.css')}}">
+        <!-- <link rel="stylesheet" type="text/css" href="static/search_output.css"> -->
+        <!-- <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <title>Document</title> -->
+    </head>
+<body>
+    <!-- <h1> This is the search result</h1> -->
+    <table>
+        <tr>
+            {% for header in headings %}
+            <th>
+                {{header}}
+            </th>
+            {% endfor %}
+        </tr>
+        {% for row in variable %}
+        <tr>
+            {% for cell in row %}
+            <td>
+                {{cell}}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>

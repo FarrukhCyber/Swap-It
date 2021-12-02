@@ -23,7 +23,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 10px;
 }
 .sidebar .nav-links li a.active
 {
@@ -91,7 +90,7 @@ nav .name-details .name_
 
 .search-courses nav
 {
-  margin: 200px 150px;
+  margin: 150px;
 }
 input[type=text] 
 {
@@ -104,11 +103,9 @@ input[type=submit]
 {
   background-color:#4CAF50 ;
   color: white;
-  padding: 15px 20px;
+  padding: 16px 32px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 15px;
   
 }
 

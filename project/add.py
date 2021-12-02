@@ -1,18 +1,16 @@
-from flask import Flask,render_template, request
-from werkzeug.utils import redirect
-from flask_mysqldb import MySQL
-from flask.templating import render_template_string
+from flask import Blueprint, render_template, request, flash, jsonify
 from flask.helpers import url_for
+from flask.templating import render_template_string
+from werkzeug.utils import redirect
+from project import views, views, auth
+from .db_config import create_db
 
-app = Flask(__name__)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'password'
-app.config['MYSQL_DB'] = 'flaskapp'
-mysql = MySQL(app)
- 
-@app.route('/', methods=['GET', 'POST'])
+mysql = create_db()
 
+add = Blueprint('add', __name__)
+
+# # TODO: change the route endpoint abd I may need to remove the index function
+@add.route('/', methods=['GET', 'POST'])
 def index():
     print("hellooo")
     if request.method == 'POST':
@@ -32,23 +30,20 @@ def index():
 
     return render_template('search_course.html')
 
-@app.route('/add/<data>', methods=['GET', 'POST'])
+@add.route('/add/<data>', methods=['GET', 'POST'])
 def output(data):
-    if request.method == "POST":
-        print("farrukh")
+    data = list(eval(data))   
+    if request.method == "GET":
+
         option = request.form.get("ADD")
-        if option == "ADD1":
-            cursor = mysql.connection.cursor()
-            cursor.execute("INSERT INTO Takes(StudentID, CourseID, SectionID, Semester, Year_, Grade) VALUES(user_id, name, password, email,12,dept)")
-            mysql.connection.commit()
-            cursor.close() 
-        
+        print("hello")
+        # if option == "ADD1":
+        cursor = mysql.connection.cursor()
+        a = "23100278"
+        b = "CS100"
+        c= "S2"
+        d = "B+"
+        cursor.execute("INSERT INTO Takes(StudentID, CourseID, SectionID, Grade) VALUES(%s,%s ,%s , %s)", (a,b,c,d))
+        mysql.connection.commit()
+        cursor.close()  
     return render_template('output.html', headings = ("CourseID","Title","DepartmentName","Credits","ModesOfInstruction") , variable = data)
-
-
-@app.route('/swap', methods=['GET', 'POST'])
-def swap_search():
-    return render_template('swap_search.html')
-
-if __name__ == "__main__":
-    app.run(debug=True)
