@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'PUbuntu', sans-serif;
+}
+.sidebar
+{
+  position: fixed;
+  height: 100%;
+  width: 180px;
+  background: #356D65;
+}
+
+.sidebar .nav-links li
+{
+  height: 70px;
+}
+.sidebar .nav-links li a
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.sidebar .nav-links li a.active
+{
+  background: #354F52;
+}
+.sidebar .nav-links li a:hover
+{
+  background: #354F52;
+}
+
+.sidebar .nav-links li a .links_name
+{
+  color: #fff;
+  font-size: 16px;
+  font-weight: 40;
+}
+
+.home-section
+{
+  position: relative;
+  background: #fff;
+  height: 500px;
+  width: calc(100% - 240px);
+  left: 180px;
+}
+
+.home-section nav
+{
+  justify-content: space-between;
+  height: 100px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: calc(100% - 240px);
+  left: 180px;
+  padding:  20px;
+}
+
+.home-section nav .sidebar-button
+{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 50;
+}
+
+.home-section nav .name-details
+{
+  display: flex;
+  align-items: center;
+  height: 60px;
+  min-width: 200px;
+  border-radius: 12px;
+  background: #F6F1EE;
+}
+
+nav .name-details .name_
+{
+  font-size: 15px;
+  font-weight: 300;
+  color: #000;
+  margin: 10px;
+}
+
+.add-courses nav
+{
+  margin: 150px;
+}
+input[type=text] 
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;  
+}
+input[type=submit]
+{
+  background-color:#4CAF50 ;
+  color: white;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+}
+
+
+
+
+
+
+
+
