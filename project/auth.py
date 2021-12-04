@@ -4,6 +4,7 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from flask import session
 
+# random comment 
 
 from project import views
 from .db_config import create_db
