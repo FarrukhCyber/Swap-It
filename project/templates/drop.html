@@ -46,67 +46,39 @@
         <table class="table table-bordered" method='`POST'>
             <thead class="thead-dark">
                 <tr>
-                  <th scope="col">#</th>
                   <th scope="col">Course ID</th>
                   <th scope="col">Course Title</th>
                   <th scope="col">Credit Hours</th>
+                  <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>CS100</td>
-                  <td>Intro to Computational Problem Solving</td>
-                  <td>3</td>
-                  <td> <button class="btn btn-primary" type="submit" name="options" id="options" value="CS100">Drop</button> </td>
-                </tr>
+                {% if flag %}
+                  {% for row in data %}
+                  <tr>
+                    {% set flag= 'false' %}
+                    
+                    {% for cell in row %}
+                    <td> {{cell}} </td>
+                    {% set flag= 'true' %}
+                    {% endfor %}
 
-                <tr>
-                  <th scope="row">2</th>
-                  <td>CS200</td>
-                  <td>Programming Fundamentals</td>
-                  <td>3</td>
-                  <td> <button class="btn btn-primary" type="submit" name="options" id="options" value="CS200">Drop</button> </td>
-                </tr>
+                    <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td>
+
+                    <!-- {% if flag == 'true' %} -->
+                      <!-- <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td> -->
+                    <!-- {% endif %} -->
+                  </tr> 
+                  {% endfor %}
+
+                {% else %}
+                  <tr> <td>You have Dropped all your courses</td>  </tr>
+                  
+                {% endif %}
+                
+
             </tbody>
         </table>
-        <!-- <button type="submit" class="btn btn-primary" name="options" value= "hello">Drop</button> -->
-
     </form>
-
-    <!-- <table class="table table-bordered" method='`POST'>
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td> <button class="btn btn-primary" type="submit" name="options" id="options" value="admin">Drop</button> </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table> -->
-      
   </body>
-
-
 </html>
