@@ -19,7 +19,6 @@ global_list = [
 ]
 #-----------------------
 
-# FIXME: fix the db takes table so that a student can enroll in more than one course
 @drop.route('/drop', methods=['GET', 'POST'])
 def fetch_data():
     user_id = session["user"][0]

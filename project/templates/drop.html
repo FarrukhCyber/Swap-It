@@ -4,81 +4,55 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="static/home.css">
+        <link rel="stylesheet" type="text/css" href="static/drop.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
      </head>
   <body>
-    <!-- <div class="sidebar">
-        <ul class="nav-links">
-          <li>
-            <a href="/home" class="active">
-              <span class="links_name">Homepage</span>
-            </a>
-          </li>
-          <li>
-            <a href="/search">
-              <span class="links_name">Search Course</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="links_name">Add Course</span>
-            </a>
-          </li>
-          <li>
-            <a href="/drop">
-              <span class="links_name">Drop Course</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="links_name">Swap Course</span>
-            </a>
-          </li>
-          <li>
-            <a href="/logout">
-              <span class="links_name">Log Out</span>
-            </a>
-          </li>
-        </ul>
-    </div> -->
+    
+    <div class="container">
 
-    <form class="form1" method="POST">
-        <table class="table table-bordered" method='`POST'>
-            <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Course ID</th>
-                  <th scope="col">Course Title</th>
-                  <th scope="col">Credit Hours</th>
-                  <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if flag %}
-                  {% for row in data %}
-                  <tr>
-                    {% set flag= 'false' %}
+      <!-- <div class="justify-content-end"> -->
+        <form class="form1" method="POST">
+            <table class="table table-bordered" method='`POST'>
+                <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Course ID</th>
+                      <th scope="col">Course Title</th>
+                      <th scope="col">Credit Hours</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if flag %}
+                      {% for row in data %}
+                      <tr>
+                        {% set flag= 'false' %}
+                        
+                        {% for cell in row %}
+                        <td> {{cell}} </td>
+                        {% set flag= 'true' %}
+                        {% endfor %}
+    
+                        <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td>
+    
+                        <!-- {% if flag == 'true' %} -->
+                          <!-- <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td> -->
+                        <!-- {% endif %} -->
+                      </tr> 
+                      {% endfor %}
+    
+                    {% else %}
+                      <tr> <td>You have Dropped all your courses</td>  </tr>
+                      
+                    {% endif %}
                     
-                    {% for cell in row %}
-                    <td> {{cell}} </td>
-                    {% set flag= 'true' %}
-                    {% endfor %}
+    
+                </tbody>
+            </table>
 
-                    <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td>
-
-                    <!-- {% if flag == 'true' %} -->
-                      <!-- <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td> -->
-                    <!-- {% endif %} -->
-                  </tr> 
-                  {% endfor %}
-
-                {% else %}
-                  <tr> <td>You have Dropped all your courses</td>  </tr>
-                  
-                {% endif %}
-                
-
-            </tbody>
-        </table>
-    </form>
+            <a class="btn btn-primary" href="/home" role="button">Back to home</a>
+        </form>
+      <!-- </div> -->
+    </div>
   </body>
 </html>
