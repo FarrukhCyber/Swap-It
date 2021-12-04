@@ -23,6 +23,7 @@ def index():
         print("searching...")
         cur.execute("SELECT CourseID,Title,DepartmentName,Credits,ModesOfInstruction FROM Course WHERE CourseID = %s OR   Title = %s OR DepartmentName= %s" , [course_id, course_name, dept_name])
         result = cur.fetchall()
+        cur.close()
         print(type(result)) 
         if result[0] != None:
             #return render_template('output.html', headings = ("CourseID","Title","DepartmentName","Credits","ModesOfInstruction") ,variable = result)

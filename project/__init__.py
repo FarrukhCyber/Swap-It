@@ -10,6 +10,7 @@ def create_app():
     from .auth import auth
     from .add import add
     from .search import search
+    from .drop import drop
     
     # login_manager = LoginManager()
     # login_manager.login_view = 'auth.login'
@@ -24,6 +25,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(add, url_prefix='/')
     app.register_blueprint(search, url_prefix='/')
+    app.register_blueprint(drop, url_prefix='/')
     
     return app
     
