@@ -132,8 +132,8 @@ CREATE TABLE `section` (
   `Semester` varchar(45) NOT NULL,
   `Year_` int NOT NULL,
   `TimeSlotID` varchar(45) NOT NULL,
-  PRIMARY KEY (`SectionID`),
-  KEY `CourseID` (`CourseID`),
+  PRIMARY KEY (`SectionID`, `CourseID`),
+  -- KEY `CourseID` (`CourseID`),
   KEY `InstructorID` (`InstructorID`),
   KEY `TimeSlotID` (`TimeSlotID`),
   CONSTRAINT `section_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`),
@@ -191,7 +191,8 @@ CREATE TABLE `swapit` (
   `RequestID` varchar(45) NOT NULL,
   `HaveCourseID` varchar(45) NOT NULL,
   `WantCourseID` varchar(45) NOT NULL,
-  `AcceptID` varchar(45) NOT NULL,
+  `AcceptID` varchar(45) , /* Changed NOT NULL */
+  `Status` varchar(45),
   PRIMARY KEY (`RequestID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -202,7 +203,9 @@ CREATE TABLE `swapit` (
 
 LOCK TABLES `swapit` WRITE;
 /*!40000 ALTER TABLE `swapit` DISABLE KEYS */;
-INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6:50'),('23100126','CAL101','MGMT142','6:50'),('23100253','CS100','CS200','6:50'),('23100277','HIST100','CS200','6:50'),('23100289','ENG111','CAL101','6:50');
+-- INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6:50'),('23100126','CAL101','MGMT142','6:50'),('23100253','CS100','CS200','6:50'),('23100277','HIST100','CS200','6:50'),('23100289','ENG111','CAL101','6:50');
+INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6350', "0"),('23100126','CAL101','MGMT142','6:50', "1"),('23100253','CS100','CS200','6:50', "0"),('23100277','HIST100','CS200','6:50', "1"),('23100289','ENG111','CAL101','6:50', "0");
+
 /*!40000 ALTER TABLE `swapit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,9 +221,9 @@ CREATE TABLE `takes` (
   `CourseID` varchar(45) NOT NULL,
   `SectionID` varchar(45) NOT NULL,
   `Grade` varchar(45) NOT NULL,
-  PRIMARY KEY (`StudentID`),
-  KEY `CourseID` (`CourseID`),
-  KEY `SectionID` (`SectionID`),
+  PRIMARY KEY (`StudentID`, `CourseID`),
+  -- KEY `CourseID` (`CourseID`),
+  -- KEY `SectionID` (`SectionID`),
   CONSTRAINT `takes_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`),
   CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

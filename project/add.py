@@ -59,7 +59,7 @@ def insert_data():
     result = cursor.fetchall()
     
     if len(result) == 0 :
-        cursor.execute("INSERT INTO Takes(StudentID, CourseID, SectionID, Grade) VALUES(%s,%s ,%s , %s)", session["add_details"])
+        cursor.execute("INSERT INTO takes(StudentID, CourseID, SectionID, Grade) VALUES(%s,%s ,%s , %s)", session["add_details"])
         mysql.connection.commit()
         session["status"] = True
     else:
