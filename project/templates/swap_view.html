@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="static/home.css" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <br />
+      <h1>Your Requests Status</h1>
+      <br />
+      <form class="form1" method="POST">
+          {% if flag %}
+            {% for row in data %}
+            <br />
+            <div class="card w-75">
+                <h6 style="background-color: paleturquoise" class="card-header">
+                {% if row[4]=="0" %}
+                    <strong>RequestID: </strong> {{row[0]}}
+                {% else%}
+                    <strong>RequestID: </strong> {{row[0]}} &emsp; <strong>AcceptID: </strong> {{row[3]}}
+                {% endif %}
+                </h6>
+                <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                    <h5 class="card-title">Have: {{row[1]}}</h5>
+                    </div>
+                    <div class="col">
+                    <h5 class="card-title">Want: {{row[2]}}</h5>
+                    </div>
+                    <div class="col-sm">
+                    {% if row[4]=="0" %}
+                        <button type="button" class="btn btn-primary btn-sm">Pending</button>
+                    {% else%}
+                        <button type="button" class="btn btn-success btn-sm">Accepted</button>
+                    {% endif %}
+                    
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="alert alert-primary" role="alert">
+                You haven't added any swap requests!
+            </div>
+          {% endif %}
+        <br>
+        <a class="btn btn-dark" href="/swap_home" role="button">Back</a>
+      </form>
+    </div>
+  </body>
+</html>

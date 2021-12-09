@@ -14,28 +14,34 @@
   <body>
     <div class="container">
       <br />
-      <h1>Swap Requests</h1>
+      <h1>Search Swap Requests</h1>
       <br />
       <form class="form1" method="POST">
         <div class="row">
-          <div class="col-sm">
-            <a class="btn btn-primary" href="/swap_add" role="button">Add Requests</a>
-          </div>
-          <div class="col-sm">
-            <a class="btn btn-success" href="/swap_search" role="button">Search Requests</a>
-          </div>
-          <div class="col-sm">
-            <a class="btn btn-danger" href="/swap_view" role="button">View Your Requests</a>
-          </div>
-          <div class="col-sm">
-            <a class="btn btn-dark" href="/home" role="button">Back to home</a>
-          </div>
+            <div class="form-group">
+                <div class="col-sm">
+                  <p> <strong> Have CourseID </strong> <input type = "text" name = "have" /></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <p><strong> Want CourseID </strong> <input type = "text" name = "want" /></p>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -3px;">
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-primary" name="find", value="search">Search</button>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -3px;">
+                <div class="col-sm">
+                    <a class="btn btn-dark" href="/swap_home" role="button">Back</a>
+                </div>
+            </div>
         </div>
         <br />
-        <br />
-        <!-- <br /> -->
-        <h4>All Requests</h4>
-        <!-- <br /> -->
+
+        <p>Search Results..</p>
 
         {% if flag %}
             {% for row in data %}
@@ -59,7 +65,9 @@
             {% endfor %}
 
         {% else %}
-            <h3>OOPS! There are no swap requests found</h3>
+            <div class="alert alert-primary" role="alert">
+                No matching results found
+            </div>
         {% endif %}
 
       </form>

@@ -10,7 +10,6 @@ mysql = create_db()
 
 swap_home = Blueprint('swap_home', __name__)
 
-# FIXME: DB is not updating
 def handle_query(query, args, commit):
     cur = mysql.connect.cursor()
     cur.execute(query, args)

@@ -11,7 +11,8 @@ def create_app():
     from .drop import drop
     from .swap_home import swap_home
     from .swap_add import swap_add
-    
+    from .swap_view import swap_view
+    from .swap_search import swap_search
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -20,6 +21,8 @@ def create_app():
     app.register_blueprint(drop, url_prefix='/')
     app.register_blueprint(swap_home, url_prefix='/')
     app.register_blueprint(swap_add, url_prefix='/')
+    app.register_blueprint(swap_view, url_prefix='/')
+    app.register_blueprint(swap_search, url_prefix='/')
     
     return app
     
