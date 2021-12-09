@@ -19,15 +19,16 @@
       <form class="form1" method="POST">
         <div class="row">
           <div class="col-sm">
-            <button type="button" class="btn btn-primary">Add Request</button>
+            <a class="btn btn-primary" href="/swap_add" role="button">Add Requests</a>
           </div>
           <div class="col-sm">
-            <button type="button" class="btn btn-success">
-              Search Requests
-            </button>
+            <a class="btn btn-success" href="/swap_search" role="button">Search Requests</a>
           </div>
           <div class="col-sm">
-            <button type="button" class="btn btn-danger">View Requests</button>
+            <a class="btn btn-danger" href="/swap_view" role="button">View Requests</a>
+          </div>
+          <div class="col-sm">
+            <a class="btn btn-dark" href="/home" role="button">Back to home</a>
           </div>
         </div>
         <br />
@@ -50,7 +51,7 @@
                     <h5 class="card-title">Want: {{row[2]}}</h5>
                   </div>
                   <div class="col-sm">
-                    <button class="btn btn-success" type="submit" name="options" id="options" value={{row[0]}}/{{row[1]}}/{{row[2]}}>Send Accept</button>
+                    <button class="btn btn-success" type="submit" name="options" id="options" value={{row[0]}}/{{row[1]}}/{{row[2]}}>Accept</button>
                   </div>
                 </div>
               </div>

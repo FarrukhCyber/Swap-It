@@ -16,7 +16,7 @@ def handle_query(query, args, commit):
     cur.execute(query, args)
     
     if commit:
-        mysql.connection.commit()
+        cur.connection.commit()
         cur.close()
         return ()    
     else:
@@ -63,18 +63,9 @@ def send_accept():
     data = session["swap_home3"]
     user = session["user"][0]
     args = [user, "1", data[0], data[1], data[2]]
-    q= "insert into swapit values(%s,%s,%s,%s, %s)"
-    a = ["2344412", data[1], data[2], user, "1"]
-    print("I'm inside send_accept")
-    print(args)
-    # _ = handle_query(query, args, True)
-    cur = mysql.connect.cursor()
-    # cur.execute(query, args)
-    cur.execute(q, a)
-    mysql.connection.commit()
-    cur.close()
+    _ = handle_query(query, args, True)
     
-    return redirect(url_for("swap_home.show_data"))
+    return redirect(url_for("swap_home.fetch_data"))
     
     
         

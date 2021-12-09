@@ -193,7 +193,7 @@ CREATE TABLE `swapit` (
   `WantCourseID` varchar(45) NOT NULL,
   `AcceptID` varchar(45) , /* Changed NOT NULL */
   `Status` varchar(45),
-  PRIMARY KEY (`RequestID`)
+  PRIMARY KEY (`RequestID`, `HaveCourseID`) /*User will be able to add multiple swap requests*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
