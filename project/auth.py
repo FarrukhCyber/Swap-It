@@ -3,6 +3,7 @@ from flask.helpers import url_for
 from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from flask import session
+import functools
 
 
 from project import views
@@ -12,6 +13,20 @@ from .db_config import create_db
 mysql = create_db()
 
 auth = Blueprint('auth', __name__)
+
+
+#this decorator func implements the login required functionality
+def login_required(func):
+    @functools.wraps(func)
+    def secure_function(*args, **kwargs):
+        if "user" not in session:
+        #     return redirect(url_for("login"))
+        # return func
+            return redirect(url_for("auth.login", next=request.url))
+        return func(*args, **kwargs)
+
+    return secure_function
+
 
 @auth.route('/', methods=['GET', 'POST'])
 def login():
@@ -136,7 +151,8 @@ def login():
 def logout():
     # logout_user()
     # Reomivg the session details
-    session.pop("user", None)
+    # session.pop("user", None)
+    session.clear()
     return redirect(url_for('auth.login'))
 
 @auth.route('/signup', methods=['GET', 'POST'])

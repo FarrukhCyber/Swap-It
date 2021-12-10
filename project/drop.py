@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask.helpers import url_for
 from werkzeug.utils import redirect
-from project.auth import session
+from project.auth import session, login_required
 from .db_config import create_db
 from project import views
 
@@ -10,16 +10,17 @@ mysql = create_db()
 drop = Blueprint('drop', __name__)
 
 #Testing---------------
-global_list = [
-    ('PHY101', 'Modern Physics', 4),
-    ('PHY200', 'Advance Physics', 3),
-    ('CAL101', ' Calculus-I', 4),
-    ('CAL102', ' Calculus-II', 4),
+# global_list = [
+#     ('PHY101', 'Modern Physics', 4),
+#     ('PHY200', 'Advance Physics', 3),
+#     ('CAL101', ' Calculus-I', 4),
+#     ('CAL102', ' Calculus-II', 4),
     
-]
+# ]
 #-----------------------
 
 @drop.route('/drop', methods=['GET', 'POST'])
+@login_required
 def fetch_data():
     user_id = session["user"][0]
     print("USer:", user_id)
@@ -51,12 +52,11 @@ def fetch_data():
     # else:
     #     session["drop"] = -1
     # #---------------------------
-        
-        
     return redirect(url_for("drop.show_data"))
     
     
 @drop.route('/drop2', methods=['GET', 'POST'])
+@login_required
 def show_data():
     if request.method == "POST" :
         course_id = request.form.get('options')

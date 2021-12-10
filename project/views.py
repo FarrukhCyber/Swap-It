@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from .db_config import create_db
 from flask_login import login_required, current_user
-from project.auth import session
+from project.auth import session, login_required
 
 
 mysql = create_db()
@@ -10,6 +10,7 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/home', methods=['GET', 'POST'])
+@login_required
 def home_page():
     # get info from the backend
     # id = session["user"][0]

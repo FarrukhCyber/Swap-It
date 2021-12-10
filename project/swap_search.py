@@ -4,13 +4,14 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from project import views, views, auth
 from .db_config import create_db
-from project.auth import session
+from project.auth import session, login_required
 
 mysql = create_db()
 
 swap_search = Blueprint('swap_search', __name__)
 
 @swap_search.route("/swap_search", methods=['GET', 'POST'])
+@login_required
 def search():
     data = []
     flag = False

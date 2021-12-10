@@ -4,7 +4,7 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from project import views, views, auth
 from .db_config import create_db
-from project.auth import session
+from project.auth import session, login_required
 
 mysql = create_db()
 
@@ -34,6 +34,7 @@ def validate(userID, haveID):
     
     
 @swap_add.route("/swap_add", methods=['GET', 'POST'])
+@login_required
 def add_rquest():
     flag = True
     if request.method == "POST":

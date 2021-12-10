@@ -4,17 +4,17 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from project import views, views, auth
 from .db_config import create_db
-from project.auth import session
+from project.auth import session, login_required
 
 mysql = create_db()
 
 swap_view = Blueprint('swap_view', __name__)
 
 #Testing---------------
-global_list = [
-    ( "23100001", "ECO111", "LANG110", "23100240", "1"),
-    ( "23100001", "CS100", "REL212", "23100240", "1")
-]
+# global_list = [
+#     ( "23100001", "ECO111", "LANG110", "23100240", "1"),
+#     ( "23100001", "CS100", "REL212", "23100240", "1")
+# ]
 #-----------------------
 
 #utility function
@@ -32,6 +32,7 @@ def handle_query(query, args, commit):
         return result 
     
 @swap_view.route("/swap_view", methods=['GET', 'POST'])
+@login_required
 def view():
     userID = session["user"][0]
     query = "SELECT * FROM swapit WHERE RequestID=%s"

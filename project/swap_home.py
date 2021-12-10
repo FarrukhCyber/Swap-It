@@ -4,7 +4,7 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from project import views, views, auth
 from .db_config import create_db
-from project.auth import session
+from project.auth import session, login_required
 
 mysql = create_db()
 
@@ -24,6 +24,7 @@ def handle_query(query, args, commit):
         return result    
 
 @swap_home.route('/swap_home', methods=['GET', 'POST'])
+@login_required
 def fetch_data():
     query = "SELECT RequestID, HaveCourseID, WantCourseID FROM swapit WHERE Status=%s"
     args = ["0"]
@@ -39,6 +40,7 @@ def fetch_data():
 
 
 @swap_home.route('/swap_home2', methods=['GET', 'POST'])
+@login_required
 def show_data():
     if request.method == "POST":
         details = request.form.get("options")
@@ -57,6 +59,7 @@ def show_data():
     return render_template("swap_home.html", data= data, flag= flag)
 
 @swap_home.route('/swap_home3', methods=['GET', 'POST'])
+@login_required
 def send_accept():
     query = "UPDATE swapit SET AcceptID=%s, Status=%s WHERE  RequestID=%s AND HaveCourseID=%s AND WantCourseID=%s"
     data = session["swap_home3"]

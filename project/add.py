@@ -4,7 +4,7 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from project import views, views, auth
 from .db_config import create_db
-from project.auth import session
+from project.auth import session, login_required
 
 mysql = create_db()
 
@@ -12,6 +12,7 @@ add = Blueprint('add', __name__)
 
 # TODO: Handle the case if the user tries to add an already added course
 @add.route('/add', methods=['GET', 'POST'])
+@login_required
 def index():
     if request.method == 'POST':
         details = request.form
@@ -28,9 +29,10 @@ def index():
             session["add"] = result
             return redirect(url_for('add.output'))
         
-    return render_template('add.html')
+    return render_template('add.html', session=session)
 
 @add.route('/add2', methods=['GET', 'POST'])
+@login_required
 def output():
     if request.method == "POST":
         details = request.form.get("options")
@@ -53,6 +55,7 @@ def output():
 
 
 @add.route('/add3', methods=['GET', 'POST'])
+@login_required
 def insert_data():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM takes WHERE StudentID=%s AND CourseID=%s AND SectionID=%s",session["add_details"][0:3])
