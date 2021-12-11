@@ -209,6 +209,12 @@ UNLOCK TABLES;
 --
 -- Table structure for table `takes`
 --
+DROP TABLE IF EXISTS 'message';
+CREATE TABLE 'message' (
+  `StudentID` varchar(45) NOT NULL,
+  `mess` varchar(65000) NOT NULL,
+  PRIMARY KEY (`StudentID`),
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `takes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -218,9 +224,7 @@ CREATE TABLE `takes` (
   `CourseID` varchar(45) NOT NULL,
   `SectionID` varchar(45) NOT NULL,
   `Grade` varchar(45) NOT NULL,
-  PRIMARY KEY (`StudentID`),
-  KEY `CourseID` (`CourseID`),
-  KEY `SectionID` (`SectionID`),
+  PRIMARY KEY (`StudentID`, 'CourseID'),
   CONSTRAINT `takes_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`),
   CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

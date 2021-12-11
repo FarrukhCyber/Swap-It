@@ -7,6 +7,7 @@ from flask import session
 # random comment 
 
 from project import views
+from project import admin
 from .db_config import create_db
 # from flask_login import login_user, login_required, logout_user, current_user
 
@@ -33,7 +34,7 @@ def login():
                 session["user"] = value
                 print(session["user"])
                 cur.close()
-                return redirect(url_for('views.home_page'))
+                return redirect(url_for('admin.admin_page'))
 
             else:
                 # flash('Wrong Credentials', category='error')
