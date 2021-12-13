@@ -6,14 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
      </head>
      <style>
-         .container{
-             margin-top: 40px;
-         }
-         #submit{
+        .container{
             margin-top: 40px;
+        }
+        #submit{
+        margin-top: 40px;
 
-         }
+        }
+        .radio {
+            /* display: inline-block; */
+            margin-bottom: 15px;
+        }
+        #day label input[type="radio"]
+        {
+        display: block;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        }
      </style>
+    <!-- bootstrap row -->
     <body>
         <div class="container"> 
             <form method = "POST">
@@ -22,8 +33,12 @@
                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Course ID" name="cid">
                 </div>
                 <div class="form-group">
-                <label for="cname">Course Name</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Course Name" name="cname" >
+                    <label for="cname">Instructor idName</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Instructor ID" name="iid" >
+                </div>                
+                <div class="form-group">
+                    <label for="cname">Course Name</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Course Name" name="cname" >
                 </div>
                 <div class="form-group">
                     <label for="dname">Department Name</label>
@@ -34,8 +49,32 @@
                     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Credits" name="cred">
                 </div>
                 <div class="radio">
+                    <p>Section</p>
+                    <input type="radio" name="sec" id="sec" value="S1"> S1 </input>
+                    <input type="radio" name="sec" id="sec" value="S2"> S2 </input>
+                    <input type="radio" name="sec" id="sec" value="S3"> S3 </input>
+                </div>
+                <div class="radio">
+                    <p>Mode</p>
                     <input type="radio" name="options" id="option1" value="On-campus"> On-campus </input><br>
                     <input type="radio" name="options" id="option2" value="Online"> Online </input><br>
+                </div>
+                <div class="radio" >
+                    <p>Day</p>
+                    <input type="radio" name="day" id="day" value="Monday"> Monday </input>
+                    <input type="radio" name="day" id="day" value="Tuesday"> Tuesday </input>
+                    <input type="radio" name="day" id="day" value="Wednesday"> Wednesday </input>
+                    <input type="radio" name="day" id="day" value="Thursday"> Thursday </input>
+                    <input type="radio" name="day" id="day" value="Friday"> Friday </input>
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="cred">Start Time (00:00)</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Start Time" name="stime">
+                </div>
+                <div class="form-group">
+                    <label for="cred">End Time (00:00)</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="End Time" name="etime">
                 </div>
                     <!-- <p><input type = "submit" value = "Submit" /></p> -->
                 <button type="submit" class="btn btn-default" id="submit">Submit</button>

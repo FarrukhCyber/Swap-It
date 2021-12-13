@@ -26,15 +26,27 @@ def add():
         cname = details.get('cname') # course name
         dname = details.get('dname') # dept name
         cred = details.get('cred') # credits
-        mode = details.get('options') # credits
+        mode = details.get('options') # mode
+        day =  details.get('day') # day
+        stime =  details.get('stime') # stime
+        etime =  details.get('etime') # etime
+        iid =  details.get('iid') # iid
+        sec =  details.get('sec') # sec
+        timeslot = sec + cid # this is our time slot 
+ 
 
-        print(cname, dname)
+        print(timeslot, day, stime, etime)
         cur = mysql.connection.cursor()
-        
-        # ***    PUT A CHECK IF COURSE ALREADY EXISTS !!!   ***
-
+        #  TimeSlotID | Day_      | Start_Time | End_Time
+        cur.execute("Insert into timeslot(TimeSlotID,Day_,Start_Time, End_Time) values(%s,%s,%s, %s)", [timeslot, day, stime, etime])
+        cur.connection.commit() # InstructorID | CourseID | SectionID |
         cur.execute("Insert into course(CourseID,Title,DepartmentName,Credits,ModesOfInstruction) values(%s,%s,%s,%s,%s)", [cid, cname, dname, cred, mode])
+        cur.connection.commit() #SectionID | CourseID | InstructorID | TimeSlotID
+        cur.execute("Insert into section(SectionID,CourseID, TimeSlotID) values(%s,%s, %s)", [sec, cid, timeslot])
+        cur.connection.commit() # InstructorID | CourseID | SectionID |
+        cur.execute("Insert into teaches(InstructorID,CourseID,SectionID) values(%s,%s,%s)", [iid, cid, sec])
         cur.connection.commit()
+
         cur.close()
         print("leaving")
         return redirect(url_for('admin.admin_page'))
@@ -75,24 +87,24 @@ def drop_del():
         # cur.close()
         # cur = mysql.connect.cursor()
         cur.execute("select StudentID from takes where CourseID = %s", [cid])
-        stid = cur.fetchall()
+        stid = cur.fetchall() # get all the students taking this course 
 
-        cur.execute("select* from takes where CourseID = %s", [cid])
-        check = cur.fetchall()
-        if check: # if course is taken by anyone
-            cur.execute("delete from takes where CourseID = %s", [cid])
-            cur.connection.commit()
-        cur.execute("select* from teaches where CourseID = %s", [cid])
-        check = cur.fetchall()
-        if check: # if course was taught by anyone
-            cur.execute("delete from teaches where CourseID = %s", [cid])
-            cur.connection.commit()
+        # cur.execute("select* from section where CourseID = %s", [cid])
+        # check = cur.fetchall()
+        # if check: # if course was taught by anyone
+        #     cur.execute("delete from section where CourseID = %s", [cid])
+        #     cur.connection.commit()
+        # cur.execute("select* from takes where CourseID = %s", [cid])
+        # check = cur.fetchall()
+        # if check: # if course is taken by anyone
+        #     cur.execute("delete from takes where CourseID = %s", [cid])
+        #     cur.connection.commit()
+        # cur.execute("select* from teaches where CourseID = %s", [cid])
+        # check = cur.fetchall()
+        # if check: # if course was taught by anyone
+        #     cur.execute("delete from teaches where CourseID = %s", [cid])
+        #     cur.connection.commit()
 
-        cur.execute("select* from section where CourseID = %s", [cid])
-        check = cur.fetchall()
-        if check: # if course was taught by anyone
-            cur.execute("delete from section where CourseID = %s", [cid])
-            cur.connection.commit()
         cur.execute("delete from course where CourseID = %s", [cid])
         cur.connection.commit()
         cur.close()
