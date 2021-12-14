@@ -6,8 +6,8 @@ def create_db():
     app.config['MYSQL_HOST'] = 'localhost'
     app.config['MYSQL_USER'] = 'root'
 
-    app.config['MYSQL_PASSWORD'] = 'password'
-    app.config['MYSQL_DB'] = 'swap_it'
+    app.config['MYSQL_PASSWORD'] = '786@mf12'
+    app.config['MYSQL_DB'] = 't3'
     mysql = MySQL(app)
     
     return mysql
