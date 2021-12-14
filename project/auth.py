@@ -225,5 +225,3 @@ def sign_up():
                 return redirect(url_for('views.home_page'))
     
     return render_template("sign_up.html")
-            
-            
