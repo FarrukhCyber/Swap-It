@@ -10,6 +10,8 @@ def create_app():
     from .search import search
     from .drop import drop
     from .admin import admin
+    from .entry import entryb
+
   
     from .swap_home import swap_home
     from .swap_add import swap_add
@@ -26,6 +28,8 @@ def create_app():
     app.register_blueprint(swap_add, url_prefix='/')
     app.register_blueprint(swap_view, url_prefix='/')
     app.register_blueprint(swap_search, url_prefix='/')
+    app.register_blueprint(entryb, url_prefix='/')
+
     
     return app
     
