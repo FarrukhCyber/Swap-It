@@ -1,6 +1,6 @@
 <html>
     <head>
-      <link rel="stylesheet" type="text/css" href="static/search_course.css">
+      <link rel="stylesheet" href="static/add.css">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
      </head>
   <body>
@@ -13,12 +13,12 @@
             </a>
           </li>
           <li>
-            <a href="/search" class="active">
+            <a href="/search" >
               <span class="links_name">Search Course</span>
             </a>
           </li>
           <li>
-            <a href="/add" >
+            <a href="/add"class="active" >
               <span class="links_name" >Add Course</span>
             </a>
           </li>
@@ -28,7 +28,7 @@
             </a>
           </li>
           <li>
-            <a href="swap_home">
+            <a href="/swap_home">
               <span class="links_name">Swap Course</span>
             </a>
           </li>
@@ -42,15 +42,16 @@
     <section class="home-section">
       <nav>
         <div class="sidebar-button">
-          <span class="Homepage"> Search Course</span>
+          <span class="Homepage"> Add Course</span>
         </div>
-         <div class="search-courses">
+         <div class="add-courses">
            <nav>
         <form action="" method = "POST">
       <p>Course ID <input type = "text" name = "course_id" /></p>
-      <p>Course Name <input type = "text" name = "course_name" /></p>
-      <p>Department name <input type = "text" name = "dept_name" /></p>
-      <p><input type = "submit" value = "Search Course" /></p>
+      <!-- <p>Section <input type = "text" name = "section" /></p> -->
+      <!-- <p>Department name <input type = "text" name = "dept_name" /></p> -->
+          
+      <p><input type = "submit" value = "Add Course" /></p>
   </form>
              </nav>
            </div>
@@ -59,6 +60,9 @@
         <i class='bx bx-chevron-down' ></i>
       </div>
       </nav>
+      
+     
+      
     </section>
   </body>
   </html>

@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `AdminID` varchar(45) NOT NULL,
   `AdminName` varchar(45) NOT NULL,
-  `AdminPassword` varchar(45) NOT NULL,
+  `AdminPassword` varchar(300) NOT NULL,
   `AdminEmail` varchar(45) NOT NULL,
   PRIMARY KEY (`AdminID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -169,7 +169,7 @@ DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `StudentID` varchar(45) NOT NULL,
   `StudentName` varchar(45) NOT NULL,
-  `Password_` varchar(45) NOT NULL,
+  `Password_` varchar(300) NOT NULL,
   `Email` varchar(45) NOT NULL,
   `TotalCreditHours` int NOT NULL,
   `DepartmentName` varchar(45) NOT NULL,
@@ -199,7 +199,8 @@ CREATE TABLE `swapit` (
   `HaveCourseID` varchar(45) NOT NULL,
   `WantCourseID` varchar(45) NOT NULL,
   `AcceptID` varchar(45) NOT NULL,
-  PRIMARY KEY (`RequestID`)
+  `Status` varchar(45),
+  PRIMARY KEY (`RequestID`, `HaveCourseID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -209,7 +210,7 @@ CREATE TABLE `swapit` (
 
 LOCK TABLES `swapit` WRITE;
 /*!40000 ALTER TABLE `swapit` DISABLE KEYS */;
-INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6:50'),('23100126','CAL101','MGMT142','6:50'),('23100253','CS100','CS200','6:50'),('23100277','HIST100','CS200','6:50'),('23100289','ENG111','CAL101','6:50');
+INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6350', "0"),('23100126','CAL101','MGMT142','6:50', "1"),('23100253','CS100','CS200','6:50', "0"),('23100277','HIST100','CS200','6:50', "1"),('23100289','ENG111','CAL101','6:50', "0");
 /*!40000 ALTER TABLE `swapit` ENABLE KEYS */;
 UNLOCK TABLES;
 

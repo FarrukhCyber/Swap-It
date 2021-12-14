@@ -4,46 +4,70 @@ from flask.templating import render_template_string
 from werkzeug.utils import redirect
 from project import views, views, auth
 from .db_config import create_db
+from project.auth import session, login_required
 
 mysql = create_db()
 
 add = Blueprint('add', __name__)
 
-# # TODO: change the route endpoint abd I may need to remove the index function
-@add.route('/', methods=['GET', 'POST'])
+# TODO: Handle the case if the user tries to add an already added course
+@add.route('/add', methods=['GET', 'POST'])
+@login_required
 def index():
-    print("hellooo")
     if request.method == 'POST':
         details = request.form
         course_id = details.get('course_id')
-        course_name = details.get('course_name')
-        dept_name = details.get('dept_name')
+        user_id = session["user"][0]
+        
         cur = mysql.connection.cursor()
-        print(course_id, course_name)
-        print("searching...")
-        cur.execute("SELECT CourseID,Title,DepartmentName,Credits,ModesOfInstruction FROM Course WHERE CourseID = %s OR   Title = %s OR DepartmentName= %s" , [course_id, course_name, dept_name])
+        cur.execute("SELECT CourseID, SectionID from section WHERE CourseID = %s" , [course_id])
         result = cur.fetchall()
-        print(type(result)) 
+        cur.close()
+        
+        print("Result:", result)
         if result[0] != None:
-            #return render_template('output.html', headings = ("CourseID","Title","DepartmentName","Credits","ModesOfInstruction") ,variable = result)
-            return redirect(url_for('output', data = result))
+            session["add"] = result
+            return redirect(url_for('add.output'))
+        
+    return render_template('add.html', session=session)
 
-    return render_template('search_course.html')
+@add.route('/add2', methods=['GET', 'POST'])
+@login_required
+def output():
+    if request.method == "POST":
+        details = request.form.get("options")
+        details_list = details.split('/')
+        course_id = details_list[0] #gives me the course ID
+        sec_id = details_list[1]    #gives me the Section ID
+        user = session["user"][0]
+        grade = "None"
 
-@add.route('/add/<data>', methods=['GET', 'POST'])
-def output(data):
-    data = list(eval(data))   
-    if request.method == "GET":
+        to_pass = [user,course_id,sec_id,grade]
+        session["add_details"] = to_pass
+        return redirect(url_for("add.insert_data"))
 
-        option = request.form.get("ADD")
-        print("hello")
-        # if option == "ADD1":
-        cursor = mysql.connection.cursor()
-        a = "23100278"
-        b = "CS100"
-        c= "S2"
-        d = "B+"
-        cursor.execute("INSERT INTO Takes(StudentID, CourseID, SectionID, Grade) VALUES(%s,%s ,%s , %s)", (a,b,c,d))
+    data = []
+    rows = session["add"]
+    
+    data = [ row for row in rows]
+    print("Data:", data)
+    return render_template('add_output.html' , data = data, status = session["status"])
+
+
+@add.route('/add3', methods=['GET', 'POST'])
+@login_required
+def insert_data():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM takes WHERE StudentID=%s AND CourseID=%s AND SectionID=%s",session["add_details"][0:3])
+    result = cursor.fetchall()
+    
+    if len(result) == 0 :
+        cursor.execute("INSERT INTO takes(StudentID, CourseID, SectionID, Grade) VALUES(%s,%s ,%s , %s)", session["add_details"])
         mysql.connection.commit()
-        cursor.close()  
-    return render_template('output.html', headings = ("CourseID","Title","DepartmentName","Credits","ModesOfInstruction") , variable = data)
+        session["status"] = True
+    else:
+        session["status"] = False
+        
+    cursor.close()
+    return redirect(url_for("add.output"))
+    
