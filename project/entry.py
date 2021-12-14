@@ -34,7 +34,7 @@ def entry():
     insid = 6
     value = [0]*3
     for i in range(25): # adds 50 instructors 
-        value[0] = "00"+str(insid)
+        value[0] = insid
         value[1] = names.get_full_name()
         value[2] = random.choice(dept)
         cur.execute("insert into instructor values(%s, %s, %s,)", value)
