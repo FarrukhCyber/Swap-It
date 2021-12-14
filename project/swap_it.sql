@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `AdminID` varchar(45) NOT NULL,
   `AdminName` varchar(45) NOT NULL,
-  `AdminPassword` varchar(45) NOT NULL,
+  `AdminPassword` varchar(300) NOT NULL,
   `AdminEmail` varchar(45) NOT NULL,
   PRIMARY KEY (`AdminID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -40,6 +40,17 @@ LOCK TABLES `admin` WRITE;
 INSERT INTO `admin` VALUES ('101','Mohid Tanvir','PassWord123.','mohid.tanvir@lums.edu.pk'),('102','Laiba Usman','PassWord321.','laiba.usman@lums.edu.pk'),('103','Tayyab Nasir','PassWord.123','tayyab.nasir@lums.edu.pk'),('104','Zoha Aqil','PassWord.321','zoha.aqil@lums.edu.pk'),('105','Soha Amir','PassWord12335.','soha.amir@lums.edu.pk');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `message` (
+  `message_ID` varchar(45) NOT NULL,
+  `mess` varchar(255) NOT NULL,
+  PRIMARY KEY (`message_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `course`
@@ -128,17 +139,13 @@ DROP TABLE IF EXISTS `section`;
 CREATE TABLE `section` (
   `SectionID` varchar(45) NOT NULL,
   `CourseID` varchar(45) NOT NULL,
-  `InstructorID` varchar(45) NOT NULL,
-  `Semester` varchar(45) NOT NULL,
-  `Year_` int NOT NULL,
   `TimeSlotID` varchar(45) NOT NULL,
   PRIMARY KEY (`SectionID`, `CourseID`),
-  -- KEY `CourseID` (`CourseID`),
-  KEY `InstructorID` (`InstructorID`),
+--   KEY `CourseID` (`CourseID`),
+  -- KEY `InstructorID` (`InstructorID`),
   KEY `TimeSlotID` (`TimeSlotID`),
-  CONSTRAINT `section_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`),
-  CONSTRAINT `section_ibfk_2` FOREIGN KEY (`InstructorID`) REFERENCES `instructor` (`InstructorID`),
-  CONSTRAINT `section_ibfk_3` FOREIGN KEY (`TimeSlotID`) REFERENCES `timeslot` (`TimeSlotID`)
+  CONSTRAINT `section_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`) on delete cascade,
+  CONSTRAINT `section_ibfk_3` FOREIGN KEY (`TimeSlotID`) REFERENCES `timeslot` (`TimeSlotID`) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,7 +155,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES ('S1','CS100','001','Fall',2019,'01'),('S2','CAL101','002','Spring',2019,'02'),('S3','PHY101','003','Fall',2020,'03'),('S4','ECO111','005','Fall',2020,'04'),('S5','HIST124','004','Spring',2020,'05');
+INSERT INTO `section` VALUES ('S1','CS100','01'),('S2','CAL101','02'),('S3','PHY101','03'),('S1','ECO111','04'),('S2','HIST124','05');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +169,7 @@ DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `StudentID` varchar(45) NOT NULL,
   `StudentName` varchar(45) NOT NULL,
-  `Password_` varchar(45) NOT NULL,
+  `Password_` varchar(300) NOT NULL,
   `Email` varchar(45) NOT NULL,
   `TotalCreditHours` int NOT NULL,
   `DepartmentName` varchar(45) NOT NULL,
@@ -191,9 +198,9 @@ CREATE TABLE `swapit` (
   `RequestID` varchar(45) NOT NULL,
   `HaveCourseID` varchar(45) NOT NULL,
   `WantCourseID` varchar(45) NOT NULL,
-  `AcceptID` varchar(45) , /* Changed NOT NULL */
+  `AcceptID` varchar(45) NOT NULL,
   `Status` varchar(45),
-  PRIMARY KEY (`RequestID`, `HaveCourseID`) /*User will be able to add multiple swap requests*/
+  PRIMARY KEY (`RequestID`, `HaveCourseID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -203,9 +210,7 @@ CREATE TABLE `swapit` (
 
 LOCK TABLES `swapit` WRITE;
 /*!40000 ALTER TABLE `swapit` DISABLE KEYS */;
--- INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6:50'),('23100126','CAL101','MGMT142','6:50'),('23100253','CS100','CS200','6:50'),('23100277','HIST100','CS200','6:50'),('23100289','ENG111','CAL101','6:50');
 INSERT INTO `swapit` VALUES ('23100115','ECO100','ECO111','6350', "0"),('23100126','CAL101','MGMT142','6:50', "1"),('23100253','CS100','CS200','6:50', "0"),('23100277','HIST100','CS200','6:50', "1"),('23100289','ENG111','CAL101','6:50', "0");
-
 /*!40000 ALTER TABLE `swapit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,10 +227,8 @@ CREATE TABLE `takes` (
   `SectionID` varchar(45) NOT NULL,
   `Grade` varchar(45) NOT NULL,
   PRIMARY KEY (`StudentID`, `CourseID`),
-  -- KEY `CourseID` (`CourseID`),
-  -- KEY `SectionID` (`SectionID`),
-  CONSTRAINT `takes_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`),
-  CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`)
+  CONSTRAINT `takes_ibfk_1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`) on delete cascade,
+  CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -250,14 +253,12 @@ CREATE TABLE `teaches` (
   `InstructorID` varchar(45) NOT NULL,
   `CourseID` varchar(45) NOT NULL,
   `SectionID` varchar(45) NOT NULL,
-  `Semester` varchar(45) DEFAULT NULL,
-  `Year_` int NOT NULL,
   PRIMARY KEY (`InstructorID`,`CourseID`,`SectionID`),
   KEY `CourseID` (`CourseID`),
   KEY `SectionID` (`SectionID`),
-  CONSTRAINT `teaches_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `instructor` (`InstructorID`),
-  CONSTRAINT `teaches_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`),
-  CONSTRAINT `teaches_ibfk_3` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`)
+  CONSTRAINT `teaches_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `instructor` (`InstructorID`) on delete cascade,
+  CONSTRAINT `teaches_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`) on delete cascade,
+  CONSTRAINT `teaches_ibfk_3` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -267,7 +268,7 @@ CREATE TABLE `teaches` (
 
 LOCK TABLES `teaches` WRITE;
 /*!40000 ALTER TABLE `teaches` DISABLE KEYS */;
-INSERT INTO `teaches` VALUES ('001','CS100','S1','Fall',2019),('001','CS200','S1','Fall',2021),('002','CAL101','S2','Spring',2019),('003','ECO111','S3','Fall',2020),('004','HIST124','S5','Spring',2020),('005','PHY101','S4','Fall',2020);
+INSERT INTO `teaches` VALUES ('001','CS100','S1'),('001','CS200','S1'),('002','CAL101','S2'),('003','ECO111','S3'),('004','HIST124','S4'),('005','PHY101','S4');
 /*!40000 ALTER TABLE `teaches` ENABLE KEYS */;
 UNLOCK TABLES;
 
