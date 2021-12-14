@@ -8,27 +8,27 @@
     <div class="sidebar">
         <ul class="nav-links">
           <li>
-            <a href="/" class="active">
+            <a href="/home" class="active">
               <span class="links_name">Homepage</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/search">
               <span class="links_name">Search Course</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/add">
               <span class="links_name">Add Course</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/drop">
               <span class="links_name">Drop Course</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/swap_home">
               <span class="links_name">Swap Course</span>
             </a>
           </li>
@@ -45,7 +45,7 @@
           <span class="Homepage">Welcome to SwapIt</span>
         </div>
          <div class="name-details">
-        <span class="name_">Sarah Khan</span>
+        <span class="name_">{{session["user"][0]}}</span>
         <i class='bx bx-chevron-down' ></i>
       </div>
       </nav>
@@ -55,7 +55,7 @@
           <div class="box">
             <div class="right-side">
               <div class="box-topic">Total Credit Hours</div>
-              <div class="info_">15</div>
+              <div class="info_">{{crd_hrs}}</div>
               
             </div>
             <i class='bx bxs-cart-add cart two' ></i>
@@ -63,7 +63,7 @@
           <div class="box">
             <div class="right-side">
               <div class="box-topic">Total Courses</div>
-              <div class="info_">5</div>
+              <div class="info_">{{no_courses}}</div>
               
             </div>
             <i class='bx bx-cart cart three' ></i>

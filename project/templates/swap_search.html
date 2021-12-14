@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="static/home.css" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <br />
+      <h1>Search Swap Requests</h1>
+      <br />
+      <form class="form1" method="POST">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm">
+                  <p> <strong> Have CourseID </strong> <input type = "text" name = "have" /></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm">
+                    <p><strong> Want CourseID </strong> <input type = "text" name = "want" /></p>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -3px;">
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-primary" name="find", value="search">Search</button>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -3px;">
+                <div class="col-sm">
+                    <a class="btn btn-dark" href="/swap_home" role="button">Back</a>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <p>Search Results..</p>
+
+        {% if flag %}
+            {% for row in data %}
+            <br />
+            <div class="card w-75">
+              <h5 style="background-color:paleturquoise ;"  class="card-header">Request ID: {{row[0]}}</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title">Have: {{row[1]}}</h5>
+                  </div>
+                  <div class="col">
+                    <h5 class="card-title">Want: {{row[2]}}</h5>
+                  </div>
+                  <div class="col-sm">
+                    <button class="btn btn-success" type="submit" name="options" id="options" value={{row[0]}}/{{row[1]}}/{{row[2]}}>Accept</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="alert alert-primary" role="alert">
+                No matching results found
+            </div>
+        {% endif %}
+
+      </form>
+    </div>
+  </body>
+</html>

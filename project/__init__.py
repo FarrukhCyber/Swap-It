@@ -1,6 +1,4 @@
 from flask import Flask
-from flask_login import LoginManager, login_manager
-from flask_login.utils import login_required
 app = Flask(__name__)
 # from auth import user 
 def create_app():
@@ -8,18 +6,23 @@ def create_app():
     
     from .views import views
     from .auth import auth
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(id):
-        print("what this")
-        # return user.query.get(int(id))
+    from .add import add
+    from .search import search
+    from .drop import drop
+    from .swap_home import swap_home
+    from .swap_add import swap_add
+    from .swap_view import swap_view
+    from .swap_search import swap_search
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(add, url_prefix='/')
+    app.register_blueprint(search, url_prefix='/')
+    app.register_blueprint(drop, url_prefix='/')
+    app.register_blueprint(swap_home, url_prefix='/')
+    app.register_blueprint(swap_add, url_prefix='/')
+    app.register_blueprint(swap_view, url_prefix='/')
+    app.register_blueprint(swap_search, url_prefix='/')
     
     return app
     

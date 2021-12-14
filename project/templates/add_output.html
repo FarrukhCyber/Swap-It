@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" type="text/css" href="static/home.css"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="static/drop.css"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     </head>
+  <body>
+    
+    <div class="container">
+        <form class="form1" method="POST">
+            <table style="margin-top: 40px;"  class="table table-bordered" method='`POST'>
+                <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Course ID</th>
+                      <th scope="col">Course Section</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                      {% for row in data %}
+                      <tr>
+                        
+                        {% for cell in row %}
+                        <td> {{cell}} </td>
+                        {% endfor %}
+                        
+                        {% if row in added%}
+                            <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}/{{row[1]}} disabled>Add</button> </td>
+                        {% else %}
+                            <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}/{{row[1]}}>Add</button> </td>
+                        {% endif %}
+
+                      </tr> 
+                      {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="/add" role="button">Back</a>
+        </form>
+    </div>
+  </body>
+</html>
