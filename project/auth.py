@@ -30,8 +30,7 @@ def login_required(func):
     return secure_function
 
 
-# @auth.route('/', methods=['GET', 'POST'])
-@auth.route('/swap-it123.herokuapp.com/', methods=['GET', 'POST'])
+@auth.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         details = request.form
