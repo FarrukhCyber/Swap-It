@@ -24,7 +24,7 @@ drop = Blueprint('drop', __name__)
 def fetch_data():
     user_id = session["user"][0]
     print("USer:", user_id)
-    cur = mysql.connection.cursor()
+    cur =mysql.connect.cursor()
     value = cur.execute("SELECT CourseID, SectionID FROM takes WHERE StudentID=%s", [user_id])
     # if the student has enrolled courses
     if value >0:
@@ -64,9 +64,9 @@ def show_data():
         print("Course_id:", course_id)
         
         # delete that course from the table
-        cur = mysql.connection.cursor()
+        cur =mysql.connect.cursor()
         cur.execute("DELETE FROM takes WHERE StudentID=%s AND CourseID=%s", [user_id, course_id])
-        mysql.connection.commit()
+        cur.connection.commit()
         cur.close()
         
         # #TESTING------------
@@ -115,7 +115,7 @@ def show_data():
 #     else:
 #         user_id = session["user"][0]
 #         print("USer:", user_id)
-#         cur = mysql.connection.cursor()
+#         cur =mysql.connect.cursor()
 #         value = cur.execute("SELECT CourseID, SectionID FROM takes WHERE StudentID=%s", [user_id])
 #         result = cur.fetchall()
 #         # print(result)

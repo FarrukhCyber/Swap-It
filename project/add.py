@@ -19,7 +19,7 @@ def index():
         course_id = details.get('course_id')
         user_id = session["user"][0]
         
-        cur = mysql.connection.cursor()
+        cur = mysql.connect.cursor()
         cur.execute("SELECT CourseID, SectionID from section WHERE CourseID = %s" , [course_id])
         result = cur.fetchall()
         cur.close()
@@ -57,13 +57,13 @@ def output():
 @add.route('/add3', methods=['GET', 'POST'])
 @login_required
 def insert_data():
-    cursor = mysql.connection.cursor()
+    cursor = mysql.connect.cursor()
     cursor.execute("SELECT * FROM takes WHERE StudentID=%s AND CourseID=%s AND SectionID=%s",session["add_details"][0:3])
     result = cursor.fetchall()
     
     if len(result) == 0 :
         cursor.execute("INSERT INTO takes(StudentID, CourseID, SectionID, Grade) VALUES(%s,%s ,%s , %s)", session["add_details"])
-        mysql.connection.commit()
+        cursor.connection.commit()
         session["status"] = True
     else:
         session["status"] = False

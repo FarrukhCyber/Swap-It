@@ -20,7 +20,7 @@ def index():
         course_id = details.get('course_id')
         course_name = details.get('course_name')
         dept_name = details.get('dept_name')
-        cur = mysql.connection.cursor()
+        cur = mysql.connect.cursor()
         print(course_id, course_name)
         print("searching...")
         cur.execute("SELECT CourseID,Title,DepartmentName,Credits,ModesOfInstruction FROM Course WHERE CourseID = %s OR   Title = %s OR DepartmentName= %s" , [course_id, course_name, dept_name])

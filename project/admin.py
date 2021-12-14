@@ -36,7 +36,7 @@ def add():
  
 
         print(timeslot, day, stime, etime)
-        cur = mysql.connection.cursor()
+        cur = mysql.connect.cursor()
         #  TimeSlotID | Day_      | Start_Time | End_Time
         cur.execute("Insert into timeslot(TimeSlotID,Day_,Start_Time, End_Time) values(%s,%s,%s, %s)", [timeslot, day, stime, etime])
         cur.connection.commit() # InstructorID | CourseID | SectionID |
@@ -154,7 +154,7 @@ def edit_change():
         cred = details.get('cred') # credits
         mode = details.get('options') # credits
 
-        cur = mysql.connection.cursor()
+        cur = mysql.connect.cursor()
 
         updated = []
 
