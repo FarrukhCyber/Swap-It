@@ -9,12 +9,15 @@ def create_app():
     from .add import add
     from .search import search
     from .drop import drop
+    from .admin import admin
+  
     from .swap_home import swap_home
     from .swap_add import swap_add
     from .swap_view import swap_view
     from .swap_search import swap_search
 
     app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(admin, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(add, url_prefix='/')
     app.register_blueprint(search, url_prefix='/')

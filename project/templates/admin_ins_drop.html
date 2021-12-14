@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="static/home.css">
+        <link rel="stylesheet" type="text/css" href="static/drop.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     </head>
+  <body>
+    
+    <div class="container">
+
+      <!-- <div class="justify-content-end"> -->
+        <form class="form1" method="POST">
+            <table class="table table-bordered" method='`POST'>
+                <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Instructor ID</th>
+                      <th scope="col">Instructor Name</th>
+                      <th scope="col">Department Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if flag %}
+                      {% for row in data %}
+                      <tr>
+                        {% set flag= 'false' %}
+                        
+                        {% for cell in row %}
+                        <td> {{cell}} </td>
+                        {% set flag= 'true' %}
+                        {% endfor %}
+    
+                        <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td>
+    
+                        <!-- {% if flag == 'true' %} -->
+                          <!-- <td> <button class="btn btn-primary" type="submit" name="options" id="options" value={{row[0]}}>Drop</button> </td> -->
+                        <!-- {% endif %} -->
+                      </tr> 
+                      {% endfor %}
+    
+                    {% else %}
+                      <tr> <td>You have Dropped all your Instructors</td>  </tr>
+                      
+                    {% endif %}
+                    
+    
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="/admin" role="button">Back to home</a>
+        </form>
+      <!-- </div> -->
+    </div>
+  </body>
+</html>
