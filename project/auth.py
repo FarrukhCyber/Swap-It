@@ -30,7 +30,8 @@ def login_required(func):
     return secure_function
 
 
-@auth.route('/', methods=['GET', 'POST'])
+# @auth.route('/', methods=['GET', 'POST'])
+@auth.route('/swap-it123.herokuapp.com/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         details = request.form
@@ -38,7 +39,7 @@ def login():
         password = details.get('password')
         option = details.get('options')
         print(user_id, password)
-        cur = mysql.connection.cursor()
+        cur = mysql.connect.cursor()
         if option == 'admin':
             print("IN ADMIN")
             resultValue = cur.execute("SELECT AdminID,AdminPassword FROM Admin WHERE AdminID = %s and AdminPassword = %s", [user_id, password])
@@ -88,7 +89,7 @@ def login():
 #         password = details.get('password')
 #         option = details.get('options')
 #         print(email, password)
-#         cur = mysql.connection.cursor()
+#         cur = mysql.connect.cursor()
 #         if option == 'admin':
 #             print("IN ADMIN")
 #             cur.execute("SELECT AdminEmail,AdminPassword FROM Admin WHERE AdminEmail = %s and AdminPassword = %s", [email, password])
@@ -168,7 +169,7 @@ def sign_up():
         
         # VALIDATION CHECK---------------------------
         #Creating a connection cursor
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connect.cursor()
         
         #signup as an admin
         if option == "admin":
@@ -198,11 +199,11 @@ def sign_up():
         else:
             #insert into student table
             if option == "student":
-                cursor = mysql.connection.cursor()
+                cursor = mysql.connect.cursor()
                 crd = "23"
                 dept = "CS"
                 cursor.execute("INSERT INTO student(StudentID ,StudentName, Password_, Email, TotalCreditHours,  DepartmentName) VALUES(%s,%s,%s,%s,%s,%s)", (user_id, name, password, email,crd,dept))
-                mysql.connection.commit()
+                cursor.connection.commit()
                 # cursor.execute("SELECT * from stduent WHERE StudentID=%s", user_id)
                 # user = cursor.fetchall()
                 cursor.close() 
@@ -214,9 +215,9 @@ def sign_up():
             
             #insert into admin table
             elif option == "admin":
-                cur = mysql.connection.cursor()
+                cur = mysql.connect.cursor()
                 cur.execute("INSERT INTO Admin VALUES (%s,%s,%s,%s)", (user_id, name, password, email))
-                mysql.connection.commit()
+                cursor.connection.commit()
                 # cur.execute("SELECT * from Admin WHERE AdminID=%s", user_id)
                 # user = cur.fetchall()
                 cur.close() 
