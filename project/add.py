@@ -51,7 +51,8 @@ def output():
     
     data = [ row for row in rows]
     print("Data:", data)
-    return render_template('add_output.html' , data = data, status = session["status"])
+    return render_template('add_output.html' , data = data)
+    # return render_template('add_output.html' , data = data, status = session["status"])
 
 
 @add.route('/add3', methods=['GET', 'POST'])
